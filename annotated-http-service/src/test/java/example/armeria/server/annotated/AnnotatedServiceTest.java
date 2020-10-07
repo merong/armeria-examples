@@ -78,6 +78,7 @@ class AnnotatedServiceTest {
                                                      .add(HttpHeaderNames.COOKIE, "b=1").build();
 
         res = client.execute(headers).aggregate().join();
+        System.out.println(res.content());
         assertThat(res.status()).isEqualTo(HttpStatus.OK);
         assertThatJson(res.contentUtf8()).isArray()
                                          .ofLength(3)

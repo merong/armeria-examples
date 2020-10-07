@@ -52,6 +52,10 @@ public class InjectionService {
                                @Header List<Integer> xArmeriaSequence, /* converted into integer */
                                Cookies cookies                         /* converted into Cookies object */)
             throws JsonProcessingException {
+        List list = Arrays.asList(xArmeriaText,
+                xArmeriaSequence,
+                cookies.stream().map(Cookie::name).collect(Collectors.toList()));
+
         return HttpResponse.of(HttpStatus.OK, MediaType.JSON_UTF_8, mapper.writeValueAsBytes(
                 Arrays.asList(xArmeriaText,
                               xArmeriaSequence,

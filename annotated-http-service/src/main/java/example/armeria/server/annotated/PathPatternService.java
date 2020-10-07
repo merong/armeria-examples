@@ -41,4 +41,10 @@ public class PathPatternService {
     public String glob(@Param("0") String name) {
         return "glob: " + name;
     }
+
+    @Get("/path2/{name}/{value}")
+    public String pathVar2(@Param String name, @Param String value) {
+        return "path2: " + name + ", value=" + value;
+    }
+
 }

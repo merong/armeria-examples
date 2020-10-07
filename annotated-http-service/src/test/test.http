@@ -1,0 +1,104 @@
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
+###
+###res = client.get("/pathPattern/path/armeria").aggregate().join();
+#        assertThat(res.contentUtf8()).isEqualTo("path: armeria");
+GET http://127.0.0.1:8080/pathPattern/path/armeria
+
+###
+### res = client.get("/pathPattern/regex/armeria").aggregate().join();
+#        assertThat(res.contentUtf8()).isEqualTo("regex: armeria");
+GET http://127.0.0.1:8080/pathPattern/regex/armeria
+
+
+###
+###  res = client.get("/pathPattern/glob/armeria").aggregate().join();
+#        assertThat(res.contentUtf8()).isEqualTo("glob: armeria");
+GET http://127.0.0.1:8080/pathPattern/glob/armeria
+
+
+### path value2
+GET http://127.0.0.1:8080/pathPattern/path2/armeria/love
+
+
+###
+###   res = client.get("/injection/param/armeria/1?gender=male").aggregate().join();
+#        assertThat(res.status()).isEqualTo(HttpStatus.OK);
+#        assertThatJson(res.contentUtf8()).isArray()
+#                                         .ofLength(3)
+#                                         .thatContains("armeria")
+#                                         .thatContains(1)
+#                                         .thatContains("MALE");
+
+GET http://127.0.0.1:8080/injection/param/armeria/1?gender=male
+
+
+
+### Headers...
+GET http://127.0.0.1:8080/injection/header
+x-armeria-text: armeria
+x-armeria-sequence: 1
+x-armeria-sequence: 2
+COOKIE: a=1;
+COOKIE: b=1;
+
+
+
+### Message Convert sample 1
+POST http://127.0.0.1:8080/messageConverter/node/node
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name":"armeria"
+}
+
+### Message Convert sample 2
+POST http://127.0.0.1:8080/messageConverter/node/obj
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name":"armeria"
+}
+
+
+### Message Convert sample 3
+POST http://127.0.0.1:8080/messageConverter/obj/obj
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name":"armeria"
+}
+
+### Message Convert sample 4
+POST http://127.0.0.1:8080/messageConverter/obj/future
+Content-Type: application/json; charset=UTF-8
+
+{
+  "name":"armeria"
+}
+
+### Message Convert custom
+POST http://127.0.0.1:8080/messageConverter/custom
+Content-Type: text/plain; charset=UTF-8
+
+armeria
+
+
+### Exceptions 1
+###   res = client.get("/exception/locallySpecific").aggregate().join();
+#        assertThat(res.status()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+GET http://127.0.0.1:8080/exception/locallySpecific
+
+
+### Exceptions 2
+###  res = client.get("/exception/locallyGeneral").aggregate().join();
+#        assertThat(res.status()).isEqualTo(HttpStatus.BAD_REQUEST);
+GET http://127.0.0.1:8080/exception/locallyGeneral
+
+### Exceptions 3
+###  res = client.get("/exception/globallyGeneral").aggregate().join();
+#        assertThat(res.status()).isEqualTo(HttpStatus.FORBIDDEN);
+GET http://127.0.0.1:8080/exception/globallyGeneral
+
